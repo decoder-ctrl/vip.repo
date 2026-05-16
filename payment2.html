@@ -174,7 +174,7 @@ document.getElementById("selectedPlan").innerHTML =
 "Selected Plan: " + formattedPlan;
 
 
-// PAYMENT SELECTION UI
+// PAYMENT UI
 const radios = document.querySelectorAll('input[name="payment"]');
 const boxes = document.querySelectorAll('.payment-method');
 
@@ -213,7 +213,7 @@ document.getElementById("result").innerHTML =
 
 }
 
-// TELEGRAM CONTROL (BLOCK IF NOT SELECTED)
+// TELEGRAM WITH CONFIRMATION POPUP
 function goTelegram(){
 
 if(selectedPayment === ""){
@@ -221,8 +221,19 @@ if(selectedPayment === ""){
     document.getElementById("result").innerHTML =
     "⚠ Please select a payment method before continuing.";
 
-    return false; // STOP
+    return false;
+}
 
+// 🔔 CONFIRM POPUP
+let confirmAction = confirm(
+    "Confirm Payment Method:\n\n" +
+    "Plan: " + formattedPlan + "\n" +
+    "Payment: " + selectedPayment + "\n\n" +
+    "Do you want to proceed to Telegram?"
+);
+
+if(!confirmAction){
+    return false;
 }
 
 const message =
