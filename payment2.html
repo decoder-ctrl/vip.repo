@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Payment Method</title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#e6e9ebb4;
+            padding:20px;
+        }
+
+        .container{
+            max-width:700px;
+            margin:auto;
+            background:white;
+            padding:35px;
+            border-radius:15px;
+            box-shadow:0 0 15px rgba(29,52,77,0.15);
+        }
+
+        h1{
+            color:#1d277e;
+            margin-bottom:10px;
+            text-align:center;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#555;
+            margin-bottom:20px;
+        }
+
+        #selectedPlan{
+            background:#dbeafe;
+            color:#1d4ed8;
+            padding:14px;
+            border-radius:10px;
+            margin-bottom:25px;
+            font-weight:bold;
+            text-align:center;
+            font-size:18px;
+        }
+
+        .payment-method{
+            border:2px solid #162557;
+            border-radius:10px;
+            padding:18px;
+            margin:15px 0;
+            transition:0.3s ease;
+            cursor:pointer;
+        }
+
+        .payment-method:hover{
+            background:#dbe8f5;
+            border-color:#2563eb;
+        }
+
+        .payment-method.selected{
+            background:#cfe3ff;
+            border-color:#2563eb;
+        }
+
+        .payment-method label{
+            display:flex;
+            align-items:center;
+            cursor:pointer;
+            width:100%;
+            font-weight:bold;
+            font-size:16px;
+        }
+
+        input[type="radio"]{
+            margin-right:12px;
+            transform:scale(1.2);
+        }
+
+        .info-text{
+            margin-top:25px;
+            line-height:1.6;
+            color:#444;
+            text-align:center;
+        }
+
+        .btn-group{
+            margin-top:25px;
+            text-align:center;
+        }
+
+        button,
+        .telegram-btn{
+            display:inline-block;
+            background:#163251;
+            color:white;
+            border:none;
+            padding:12px 22px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:16px;
+            text-decoration:none;
+            transition:0.3s;
+            margin:10px 5px;
+        }
+
+        button:hover,
+        .telegram-btn:hover{
+            background:#0d2238;
+        }
+
+        #result{
+            margin-top:20px;
+            text-align:center;
+            font-size:17px;
+            font-weight:bold;
+            color:#162557;
+        }
+
+        .footer{
+            margin-top:30px;
+            text-align:center;
+            color:#777;
+            font-size:14px;
+        }
+
+        @media(max-width:600px){
+
+            .container{
+                padding:22px;
+            }
+
+            button,
+            .telegram-btn{
+                width:100%;
+            }
+
+            h1{
+                font-size:28px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Select Payment Method</h1>
+
+        <p class="subtitle">
+            Complete your VIP registration below
+        </p>
+
+        <!-- SELECTED PLAN DISPLAY -->
+
+        <div id="selectedPlan">
+            Loading selected plan...
+        </div>
+
+        <!-- PAYMENT OPTIONS -->
+
+        <div class="payment-method">
+
+            <label>
+                <input type="radio" name="payment" value="Credit / Debit Card">
+                Credit / Debit Card
+            </label>
+
+        </div>
+
+        <div class="payment-method">
+
+            <label>
+                <input type="radio" name="payment" value="PayPal">
+                PayPal
+            </label>
+
+        </div>
+
+        <div class="payment-method">
+
+            <label>
+                <input type="radio" name="payment" value="Bitcoin Wallet">
+                Bitcoin Wallet
+            </label>
+
+        </div>
+
+        <div class="payment-method">
+
+            <label>
+                <input type="radio" name="payment" value="Cash App">
+                Cash App
+            </label>
+
+        </div>
+
+        <!-- INFO -->
+
+        <p class="info-text">
+            Payments and registration will be completed on Telegram
+            to maintain privacy and secure communication.
+        </p>
+
+        <!-- BUTTONS -->
+
+        <div class="btn-group">
+
+            <button onclick="showPayment()">
+                Confirm Payment Method
+            </button>
+
+            <a
+                id="telegramLink"
+                href="https://t.me/viponlyprivatechat"
+                target="_blank"
+                class="telegram-btn"
+            >
+                Contact Us on Telegram
+            </a>
+
+        </div>
+
+        <p id="result"></p>
+
+        <div class="footer">
+            © 2026 VIP Smart Web | All rights reserved
+        </div>
+
+    </div>
+
+    <script>
+
+        /* GET PLAN FROM FIRST PAGE */
+
+        const params = new URLSearchParams(window.location.search);
+
+        const selectedPlan = params.get("plan");
+
+        let formattedPlan = "No plan selected";
+
+        if(selectedPlan === "RegularVIP"){
+            formattedPlan = "Regular VIP";
+        }
+
+        else if(selectedPlan === "PremiumCard"){
+            formattedPlan = "Premium Card";
+        }
+
+        else if(selectedPlan === "GoldCard"){
+            formattedPlan = "Gold Card";
+        }
+
+        document.getElementById("selectedPlan").innerHTML =
+            "Selected Plan: " + formattedPlan;
+
+        /* PAYMENT BOX EFFECT */
+
+        const paymentBoxes =
+            document.querySelectorAll(".payment-method");
+
+        const radios =
+            document.querySelectorAll('input[name="payment"]');
+
+        radios.forEach((radio)=>{
+
+            radio.addEventListener("change",()=>{
+
+                paymentBoxes.forEach((box)=>{
+                    box.classList.remove("selected");
+                });
+
+                radio.closest(".payment-method")
+                    .classList.add("selected");
+
+            });
+
+        });
+
+        /* PAYMENT CONFIRM */
+
+        function showPayment(){
+
+            let selectedPayment = "";
+
+            radios.forEach((radio)=>{
+
+                if(radio.checked){
+                    selectedPayment = radio.value;
+                }
+
+            });
+
+            if(selectedPayment === ""){
+
+                document.getElementById("result").innerHTML =
+                    "Please select a payment method.";
+
+                return;
+            }
+
+            document.getElementById("result").innerHTML =
+                "Selected Payment Method: " + selectedPayment;
+
+            /* TELEGRAM MESSAGE */
+
+            const telegramMessage =
+                "Hello, I want to register for the " +
+                formattedPlan +
+                " using " +
+                selectedPayment;
+
+            const telegramURL =
+                "https://t.me/viponlyprivatechat?text=" +
+                encodeURIComponent(telegramMessage);
+
+            document.getElementById("telegramLink").href =
+                telegramURL;
+
+        }
+
+    </script>
+
+</body>
+</html>
