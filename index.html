@@ -1,369 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Smart Web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Smart Web</title>
 
-    <style>
+<style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-        body{
-            background:linear-gradient(to bottom right,#0f172a,#1e293b);
-            color:white;
-            line-height:1.7;
-            overflow-x:hidden;
-        }
+body{
+    background:linear-gradient(to bottom right,#0f172a,#1e293b);
+    color:white;
+}
 
-        /* HERO */
+.hero{
+    padding:70px 20px;
+    text-align:center;
+}
 
-        .hero{
-            background:linear-gradient(135deg,#2563eb,#0f172a);
-            padding:90px 20px;
-            text-align:center;
-            position:relative;
-            overflow:hidden;
-        }
+.hero h1{
+    font-size:40px;
+}
 
-        .hero::after{
-            content:'';
-            position:absolute;
-            width:280px;
-            height:280px;
-            background:rgba(255,255,255,0.06);
-            border-radius:50%;
-            top:-90px;
-            right:-90px;
-        }
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:auto;
+}
 
-        .hero h1{
-            font-size:50px;
-            margin-bottom:20px;
-            letter-spacing:2px;
-            text-shadow:0 0 20px rgba(255,255,255,0.2);
-        }
+.lang{
+    text-align:center;
+    margin-top:15px;
+}
 
-        .hero p{
-            max-width:850px;
-            margin:auto;
-            font-size:18px;
-            color:#e2e8f0;
-        }
+.lang button{
+    margin:5px;
+    padding:8px 12px;
+    cursor:pointer;
+}
 
-        /* CONTAINER */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-top:40px;
+}
 
-        .container{
-            width:90%;
-            max-width:1200px;
-            margin:60px auto;
-        }
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+}
 
-        /* INFO BOX */
+.price{
+    font-size:30px;
+    margin:10px 0;
+    color:#60a5fa;
+}
 
-        .info-box{
-            background:rgba(255,255,255,0.06);
-            backdrop-filter:blur(10px);
-            border:1px solid rgba(255,255,255,0.1);
-            padding:45px;
-            border-radius:25px;
-            margin-bottom:50px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.35);
-        }
+.btn{
+    display:inline-block;
+    padding:10px 20px;
+    margin-top:10px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
 
-        .info-box h2{
-            color:#60a5fa;
-            margin-bottom:20px;
-            font-size:36px;
-        }
-
-        .info-box p{
-            color:#d1d5db;
-            font-size:18px;
-        }
-
-        /* CARDS */
-
-        .cards{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-            gap:30px;
-        }
-
-        .card{
-            background:rgba(255,255,255,0.05);
-            border:1px solid rgba(255,255,255,0.08);
-            backdrop-filter:blur(10px);
-            padding:40px 25px;
-            border-radius:25px;
-            text-align:center;
-            transition:0.4s;
-            position:relative;
-            overflow:hidden;
-        }
-
-        .card::before{
-            content:'';
-            position:absolute;
-            top:0;
-            left:-100%;
-            width:100%;
-            height:100%;
-            background:linear-gradient(
-                120deg,
-                transparent,
-                rgba(255,255,255,0.12),
-                transparent
-            );
-            transition:0.8s;
-        }
-
-        .card:hover::before{
-            left:100%;
-        }
-
-        .card:hover{
-            transform:translateY(-12px);
-            box-shadow:0 15px 35px rgba(37,99,235,0.35);
-        }
-
-        .card h3{
-            font-size:30px;
-            margin-bottom:15px;
-        }
-
-        .price{
-            font-size:42px;
-            font-weight:bold;
-            margin-bottom:20px;
-            color:#60a5fa;
-        }
-
-        .card ul{
-            list-style:none;
-            margin-bottom:30px;
-            text-align:left;
-        }
-
-        .card ul li{
-            margin:12px 0;
-            color:#d1d5db;
-            font-size:16px;
-        }
-
-        /* BUTTON */
-
-        .btn{
-            display:inline-block;
-            padding:14px 35px;
-            border-radius:50px;
-            text-decoration:none;
-            background:linear-gradient(135deg,#2563eb,#3b82f6);
-            color:white;
-            font-weight:bold;
-            transition:0.3s;
-            box-shadow:0 5px 15px rgba(37,99,235,0.35);
-        }
-
-        .btn:hover{
-            transform:scale(1.06);
-            background:linear-gradient(135deg,#1d4ed8,#60a5fa);
-        }
-
-        /* TRUST SECTION */
-
-        .trust-box{
-            margin-top:70px;
-            background:rgba(255,255,255,0.04);
-            padding:35px;
-            border-radius:20px;
-            border:1px solid rgba(255,255,255,0.08);
-        }
-
-        .trust-box h2{
-            color:#60a5fa;
-            margin-bottom:15px;
-        }
-
-        .trust-box p{
-            color:#d1d5db;
-        }
-
-        /* FOOTER */
-
-        footer{
-            margin-top:80px;
-            text-align:center;
-            padding:25px;
-            background:#020617;
-            color:#94a3b8;
-            font-size:15px;
-        }
-
-        /* RESPONSIVE */
-
-        @media(max-width:768px){
-
-            .hero h1{
-                font-size:36px;
-            }
-
-            .hero p{
-                font-size:16px;
-            }
-
-            .info-box h2{
-                font-size:28px;
-            }
-
-            .price{
-                font-size:34px;
-            }
-
-            .card{
-                padding:30px 20px;
-            }
-
-        }
-
-    </style>
+</style>
 </head>
 
 <body>
 
-    <!-- HERO -->
+<div class="hero">
+<h1 id="title">VIP CARDS & RESERVATION MANAGEMENT</h1>
+<p id="subtitle">Exclusive VIP access for premium members</p>
 
-    <section class="hero">
+<div class="lang">
+<button onclick="setLang('en')">English</button>
+<button onclick="setLang('fr')">Français</button>
+<button onclick="setLang('it')">Italiano</button>
+</div>
+</div>
 
-        <h1>VIP CARDS & RESERVATION MANAGEMENT</h1>
+<div class="container">
 
-        <p>
-            Premium VIP access designed for dedicated members who want
-            exclusive reservations, personalized services, luxury benefits,
-            and direct VIP management support.
-        </p>
+<div class="cards">
 
-    </section>
+<div class="card">
+<h3>Regular VIP</h3>
+<div class="price">$4,500</div>
+<a id="btn1" href="payment2.html?plan=RegularVIP" class="btn">Select Plan</a>
+</div>
 
-    <!-- MAIN CONTENT -->
+<div class="card">
+<h3>Premium</h3>
+<div class="price">$8,500</div>
+<a id="btn2" href="payment2.html?plan=PremiumCard" class="btn">Select Plan</a>
+</div>
 
-    <div class="container">
+<div class="card">
+<h3>Gold</h3>
+<div class="price">$15,000</div>
+<a id="btn3" href="payment2.html?plan=GoldCard" class="btn">Select Plan</a>
+</div>
 
-        <!-- ABOUT -->
+</div>
 
-        <div class="info-box">
+</div>
 
-            <h2>About The VIP Membership</h2>
+<script>
 
-            <p>
-                Every VIP membership includes a personalized premium card
-                featuring your name, photo, membership code,
-                and official registration details.
+const t = {
 
-                <br><br>
+en:{
+title:"VIP CARDS & RESERVATION MANAGEMENT",
+subtitle:"Exclusive VIP access for premium members",
+btn:"Select Plan"
+},
 
-                Members gain access to private reservations,
-                exclusive VIP opportunities, priority invitations,
-                direct management support, and premium member assistance.
-            </p>
+fr:{
+title:"GESTION VIP ET RÉSERVATIONS",
+subtitle:"Accès VIP exclusif pour membres premium",
+btn:"Choisir"
+},
 
-        </div>
+it:{
+title:"GESTIONE VIP E PRENOTAZIONI",
+subtitle:"Accesso VIP esclusivo per membri premium",
+btn:"Seleziona"
+}
 
-        <!-- VIP CARDS -->
+};
 
-        <div class="cards">
+function setLang(lang){
 
-            <!-- REGULAR -->
+document.getElementById("title").innerText = t[lang].title;
+document.getElementById("subtitle").innerText = t[lang].subtitle;
 
-            <div class="card">
+document.getElementById("btn1").innerText = t[lang].btn;
+document.getElementById("btn2").innerText = t[lang].btn;
+document.getElementById("btn3").innerText = t[lang].btn;
 
-                <h3>Regular VIP</h3>
+}
 
-                <div class="price">$4,500</div>
-
-                <ul>
-                    <li>✔ VIP Registration Access</li>
-                    <li>✔ Basic Reservation Support</li>
-                    <li>✔ Member Notifications</li>
-                    <li>✔ Premium Fan Benefits</li>
-                </ul>
-
-                <a href="payment2.html?plan=RegularVIP" class="btn">
-                    Select Plan
-                </a>
-
-            </div>
-
-            <!-- PREMIUM -->
-
-            <div class="card">
-
-                <h3>Premium Card</h3>
-
-                <div class="price">$8,500</div>
-
-                <ul>
-                    <li>✔ Priority Reservation Access</li>
-                    <li>✔ Faster VIP Support</li>
-                    <li>✔ Exclusive Invitations</li>
-                    <li>✔ Premium Assistance Services</li>
-                </ul>
-
-                <a href="payment2.html?plan=PremiumCard" class="btn">
-                    Select Plan
-                </a>
-
-            </div>
-
-            <!-- GOLD -->
-
-            <div class="card">
-
-                <h3>Gold Card</h3>
-
-                <div class="price">$15,000</div>
-
-                <ul>
-                    <li>✔ Full VIP Luxury Access</li>
-                    <li>✔ Elite Reservation Priority</li>
-                    <li>✔ Dedicated VIP Assistance</li>
-                    <li>✔ Maximum Private Benefits</li>
-                </ul>
-
-                <a href="payment2.html?plan=GoldCard" class="btn">
-                    Select Plan
-                </a>
-
-            </div>
-
-        </div>
-
-        <!-- TRUST SECTION -->
-
-        <div class="trust-box">
-
-            <h2>Secure & Private Registration</h2>
-
-            <p>
-                All registrations and payment confirmations are handled
-                privately through our official support communication channels
-                to maintain member privacy and secure information handling.
-            </p>
-
-        </div>
-
-    </div>
-
-    <!-- FOOTER -->
-
-    <footer>
-        © 2026 VIP Smart Web | All Rights Reserved
-    </footer>
+</script>
 
 </body>
 </html>
