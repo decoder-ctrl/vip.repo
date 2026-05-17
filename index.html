@@ -25,27 +25,28 @@
 
         .hero{
             background:linear-gradient(135deg,#2563eb,#0f172a);
-            padding:80px 20px;
+            padding:90px 20px;
             text-align:center;
             position:relative;
+            overflow:hidden;
         }
 
         .hero::after{
             content:'';
             position:absolute;
-            width:250px;
-            height:250px;
-            background:rgba(255,255,255,0.08);
+            width:280px;
+            height:280px;
+            background:rgba(255,255,255,0.06);
             border-radius:50%;
-            top:-80px;
-            right:-80px;
+            top:-90px;
+            right:-90px;
         }
 
         .hero h1{
-            font-size:48px;
+            font-size:50px;
             margin-bottom:20px;
             letter-spacing:2px;
-            text-shadow:0 0 20px rgba(255,255,255,0.3);
+            text-shadow:0 0 20px rgba(255,255,255,0.2);
         }
 
         .hero p{
@@ -91,10 +92,10 @@
             background:rgba(255,255,255,0.06);
             backdrop-filter:blur(10px);
             border:1px solid rgba(255,255,255,0.1);
-            padding:40px;
+            padding:45px;
             border-radius:25px;
             margin-bottom:50px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.4);
+            box-shadow:0 10px 30px rgba(0,0,0,0.35);
         }
 
         .info-box h2{
@@ -120,7 +121,7 @@
             background:rgba(255,255,255,0.05);
             border:1px solid rgba(255,255,255,0.08);
             backdrop-filter:blur(10px);
-            padding:35px 25px;
+            padding:40px 25px;
             border-radius:25px;
             text-align:center;
             transition:0.4s;
@@ -141,7 +142,7 @@
                 rgba(255,255,255,0.12),
                 transparent
             );
-            transition:0.7s;
+            transition:0.8s;
         }
 
         .card:hover::before{
@@ -149,8 +150,8 @@
         }
 
         .card:hover{
-            transform:translateY(-12px) scale(1.02);
-            box-shadow:0 15px 35px rgba(37,99,235,0.4);
+            transform:translateY(-12px);
+            box-shadow:0 15px 35px rgba(37,99,235,0.35);
         }
 
         .card h3{
@@ -159,19 +160,25 @@
         }
 
         .price{
-            font-size:40px;
+            font-size:42px;
             font-weight:bold;
             margin-bottom:20px;
             color:#60a5fa;
         }
 
-        .card p{
-            color:#d1d5db;
+        .card ul{
+            list-style:none;
             margin-bottom:30px;
+            text-align:left;
+        }
+
+        .card ul li{
+            margin:12px 0;
+            color:#d1d5db;
             font-size:16px;
         }
 
-        /* BUTTONS */
+        /* BUTTON */
 
         .btn{
             display:inline-block;
@@ -182,18 +189,37 @@
             color:white;
             font-weight:bold;
             transition:0.3s;
-            box-shadow:0 5px 15px rgba(37,99,235,0.4);
+            box-shadow:0 5px 15px rgba(37,99,235,0.35);
         }
 
         .btn:hover{
-            transform:scale(1.08);
+            transform:scale(1.06);
             background:linear-gradient(135deg,#1d4ed8,#60a5fa);
+        }
+
+        /* TRUST SECTION */
+
+        .trust-box{
+            margin-top:70px;
+            background:rgba(255,255,255,0.04);
+            padding:35px;
+            border-radius:20px;
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        .trust-box h2{
+            color:#60a5fa;
+            margin-bottom:15px;
+        }
+
+        .trust-box p{
+            color:#d1d5db;
         }
 
         /* FOOTER */
 
         footer{
-            margin-top:70px;
+            margin-top:80px;
             text-align:center;
             padding:25px;
             background:#020617;
@@ -206,7 +232,11 @@
         @media(max-width:768px){
 
             .hero h1{
-                font-size:34px;
+                font-size:36px;
+            }
+
+            .hero p{
+                font-size:16px;
             }
 
             .info-box h2{
@@ -214,7 +244,11 @@
             }
 
             .price{
-                font-size:32px;
+                font-size:34px;
+            }
+
+            .card{
+                padding:30px 20px;
             }
 
         }
@@ -233,9 +267,9 @@
         </h1>
 
         <p id="heroText">
-            Exclusive VIP access for dedicated fans who wish to enjoy
-            premium services, private reservations, special invitations,
-            and direct connection with VIP management personnel.
+            Premium VIP access designed for dedicated members who want
+            exclusive reservations, personalized services, luxury benefits,
+            and direct VIP management support.
         </p>
 
         <!-- LANGUAGE SWITCH -->
@@ -265,15 +299,15 @@
             </h2>
 
             <p id="aboutText">
-                The VIP Membership is a personalized premium card designed
-                specifically for each member. Your card includes your photo,
-                membership name, unique membership code, and official
-                management signature.
+                Every VIP membership includes a personalized premium card
+                featuring your name, photo, membership code,
+                and official registration details.
+
                 <br><br>
 
-                Members receive exclusive VIP services, priority invitations,
-                early movie project updates, private reservations with our VIPs,
-                and complete access to reservation and flight assistance services.
+                Members gain access to private reservations,
+                exclusive VIP opportunities, priority invitations,
+                direct management support, and premium member assistance.
             </p>
 
         </div>
@@ -286,16 +320,18 @@
 
             <div class="card">
 
-                <h3>Regular VIP</h3>
+                <h3 id="regularTitle">Regular VIP</h3>
 
                 <div class="price">$4,500</div>
 
-                <p>
-                    Entry-level VIP membership with exclusive fan benefits
-                    and premium event access.
-                </p>
+                <ul id="regularList">
+                    <li>✔ VIP Registration Access</li>
+                    <li>✔ Basic Reservation Support</li>
+                    <li>✔ Member Notifications</li>
+                    <li>✔ Premium Fan Benefits</li>
+                </ul>
 
-                <a href="payment2.html?plan=RegularVIP" class="btn">
+                <a href="payment2.html?plan=RegularVIP" class="btn" id="btn1">
                     Select Plan
                 </a>
 
@@ -305,16 +341,18 @@
 
             <div class="card">
 
-                <h3>Premium Card</h3>
+                <h3 id="premiumTitle">Premium Card</h3>
 
                 <div class="price">$8,500</div>
 
-                <p>
-                    Enhanced VIP experience including priority reservations
-                    and premium support services.
-                </p>
+                <ul id="premiumList">
+                    <li>✔ Priority Reservation Access</li>
+                    <li>✔ Faster VIP Support</li>
+                    <li>✔ Exclusive Invitations</li>
+                    <li>✔ Premium Assistance Services</li>
+                </ul>
 
-                <a href="payment2.html?plan=PremiumCard" class="btn">
+                <a href="payment2.html?plan=PremiumCard" class="btn" id="btn2">
                     Select Plan
                 </a>
 
@@ -324,20 +362,36 @@
 
             <div class="card">
 
-                <h3>Gold Card</h3>
+                <h3 id="goldTitle">Gold Card</h3>
 
                 <div class="price">$15,000</div>
 
-                <p>
-                    Ultimate luxury VIP package with maximum access
-                    and elite private benefits.
-                </p>
+                <ul id="goldList">
+                    <li>✔ Full VIP Luxury Access</li>
+                    <li>✔ Elite Reservation Priority</li>
+                    <li>✔ Dedicated VIP Assistance</li>
+                    <li>✔ Maximum Private Benefits</li>
+                </ul>
 
-                <a href="payment2.html?plan=GoldCard" class="btn">
+                <a href="payment2.html?plan=GoldCard" class="btn" id="btn3">
                     Select Plan
                 </a>
 
             </div>
+
+        </div>
+
+        <!-- TRUST SECTION -->
+
+        <div class="trust-box">
+
+            <h2 id="trustTitle">Secure & Private Registration</h2>
+
+            <p id="trustText">
+                All registrations and payment confirmations are handled
+                privately through our official support communication channels
+                to maintain member privacy and secure information handling.
+            </p>
 
         </div>
 
@@ -356,31 +410,49 @@ const langData = {
 en:{
 heroTitle:"VIP CARDS & RESERVATION MANAGEMENT",
 
-heroText:"Exclusive VIP access for dedicated fans who wish to enjoy premium services, private reservations, special invitations, and direct connection with VIP management personnel.",
+heroText:"Premium VIP access designed for dedicated members who want exclusive reservations, personalized services, luxury benefits, and direct VIP management support.",
 
 aboutTitle:"About The VIP Membership",
 
-aboutText:"The VIP Membership is a personalized premium card designed specifically for each member. Your card includes your photo, membership name, unique membership code, and official management signature.\n\nMembers receive exclusive VIP services, priority invitations, early movie project updates, private reservations with our VIPs, and complete access to reservation and flight assistance services."
+aboutText:"Every VIP membership includes a personalized premium card featuring your name, photo, membership code, and official registration details.\n\nMembers gain access to private reservations, exclusive VIP opportunities, priority invitations, direct management support, and premium member assistance.",
+
+trustTitle:"Secure & Private Registration",
+
+trustText:"All registrations and payment confirmations are handled privately through our official support communication channels to maintain member privacy and secure information handling.",
+
+btn:"Select Plan"
 },
 
 fr:{
 heroTitle:"GESTION DES CARTES VIP ET RÉSERVATIONS",
 
-heroText:"Accès VIP exclusif pour les fans souhaitant profiter de services premium, réservations privées et invitations spéciales.",
+heroText:"Accès VIP premium conçu pour les membres souhaitant des réservations exclusives et des services personnalisés.",
 
 aboutTitle:"À propos de l'adhésion VIP",
 
-aboutText:"L'adhésion VIP est une carte premium personnalisée conçue spécialement pour chaque membre."
+aboutText:"Chaque adhésion VIP comprend une carte premium personnalisée avec votre nom, photo et code d'adhésion.",
+
+trustTitle:"Inscription Sécurisée et Privée",
+
+trustText:"Toutes les inscriptions et confirmations de paiement sont gérées de manière privée via nos canaux officiels.",
+
+btn:"Choisir"
 },
 
 it:{
 heroTitle:"GESTIONE CARTE VIP E PRENOTAZIONI",
 
-heroText:"Accesso VIP esclusivo per fan dedicati che desiderano servizi premium, prenotazioni private e inviti speciali.",
+heroText:"Accesso VIP premium progettato per membri che desiderano prenotazioni esclusive e servizi personalizzati.",
 
 aboutTitle:"Informazioni sull'iscrizione VIP",
 
-aboutText:"L'iscrizione VIP è una carta premium personalizzata progettata specificamente per ogni membro."
+aboutText:"Ogni iscrizione VIP include una carta premium personalizzata con nome, foto e codice membro.",
+
+trustTitle:"Registrazione Sicura e Privata",
+
+trustText:"Tutte le registrazioni e conferme di pagamento sono gestite privatamente tramite i nostri canali ufficiali.",
+
+btn:"Seleziona"
 }
 
 };
@@ -398,6 +470,21 @@ langData[lang].aboutTitle;
 
 document.getElementById("aboutText").innerText =
 langData[lang].aboutText;
+
+document.getElementById("trustTitle").innerText =
+langData[lang].trustTitle;
+
+document.getElementById("trustText").innerText =
+langData[lang].trustText;
+
+document.getElementById("btn1").innerText =
+langData[lang].btn;
+
+document.getElementById("btn2").innerText =
+langData[lang].btn;
+
+document.getElementById("btn3").innerText =
+langData[lang].btn;
 
 }
 
