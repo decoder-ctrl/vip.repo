@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Method</title>
+<title>Payment</title>
 
 <style>
 
@@ -15,22 +15,38 @@
 }
 
 body{
-    background:#e6e9ebb4;
+    background:#e6e9eb;
     padding:20px;
 }
 
 .container{
-    max-width:700px;
+    max-width:650px;
     margin:auto;
     background:white;
-    padding:35px;
+    padding:30px;
     border-radius:15px;
     box-shadow:0 0 15px rgba(0,0,0,0.15);
 }
 
-h1{
+.lang{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.lang button{
+    padding:8px 12px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    background:#163251;
+    color:white;
+    cursor:pointer;
+}
+
+h2{
     text-align:center;
     color:#1d277e;
+    margin-bottom:10px;
 }
 
 .subtitle{
@@ -39,30 +55,44 @@ h1{
     margin-bottom:20px;
 }
 
-#selectedPlan{
+.notice{
+    background:#fff7d6;
+    border:1px solid #facc15;
+    color:#7c5c00;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.notice h3{
+    margin-bottom:10px;
+}
+
+#planBox{
     background:#dbeafe;
     color:#1d4ed8;
     padding:12px;
     border-radius:10px;
     text-align:center;
-    font-weight:bold;
     margin-bottom:20px;
+    font-weight:bold;
 }
 
-.payment-method{
+.payment{
     border:2px solid #162557;
     padding:15px;
-    margin:15px 0;
+    margin:12px 0;
     border-radius:10px;
     cursor:pointer;
     transition:0.3s;
 }
 
-.payment-method:hover{
+.payment:hover{
     background:#dbe8f5;
 }
 
-.payment-method.selected{
+.payment.selected{
     background:#cfe3ff;
     border-color:#2563eb;
 }
@@ -79,7 +109,7 @@ input[type="radio"]{
     transform:scale(1.2);
 }
 
-.btn-group{
+.buttons{
     text-align:center;
     margin-top:25px;
 }
@@ -87,15 +117,14 @@ input[type="radio"]{
 button,
 .telegram-btn{
     display:inline-block;
-    padding:12px 22px;
-    margin:10px 5px;
+    padding:12px 20px;
+    margin:8px;
+    border:none;
     border-radius:6px;
     background:#163251;
     color:white;
     text-decoration:none;
-    font-size:16px;
     cursor:pointer;
-    border:none;
     transition:0.3s;
 }
 
@@ -105,8 +134,8 @@ button:hover,
 }
 
 #result{
-    text-align:center;
     margin-top:20px;
+    text-align:center;
     font-weight:bold;
     color:#162557;
 }
@@ -118,38 +147,79 @@ button:hover,
 
 <div class="container">
 
-<h1>Select Payment Method</h1>
-
-<p class="subtitle">Complete your VIP registration</p>
-
-<div id="selectedPlan">Loading plan...</div>
-
-<div class="payment-method">
-<label><input type="radio" name="payment" value="Credit / Debit Card"> Credit / Debit Card</label>
+<div class="lang">
+<button onclick="setLang('en')">English</button>
+<button onclick="setLang('fr')">Français</button>
+<button onclick="setLang('it')">Italiano</button>
 </div>
 
-<div class="payment-method">
-<label><input type="radio" name="payment" value="PayPal"> PayPal</label>
+<h2 id="title">Select Payment Method</h2>
+
+<p class="subtitle" id="subtitle">
+Complete your VIP registration
+</p>
+
+<!-- IMPORTANT NOTICE -->
+
+<div class="notice">
+
+<h3 id="noticeTitle">
+Important Information
+</h3>
+
+<p id="noticeText">
+Payments and registration will be completed by some of our
+official representatives on Telegram after you select your
+preferred payment method.
+</p>
+
 </div>
 
-<div class="payment-method">
-<label><input type="radio" name="payment" value="Bitcoin Wallet"> Bitcoin Wallet</label>
+<p id="planBox"></p>
+
+<!-- PAYMENT OPTIONS -->
+
+<div class="payment">
+<label>
+<input type="radio" name="pay" value="Credit / Debit Card">
+Credit / Debit Card
+</label>
 </div>
 
-<div class="payment-method">
-<label><input type="radio" name="payment" value="Cash App"> Cash App</label>
+<div class="payment">
+<label>
+<input type="radio" name="pay" value="PayPal">
+PayPal
+</label>
 </div>
 
-<div class="btn-group">
+<div class="payment">
+<label>
+<input type="radio" name="pay" value="Bitcoin Wallet">
+Bitcoin Wallet
+</label>
+</div>
 
-<button onclick="showPayment()">Confirm Payment Method</button>
+<div class="payment">
+<label>
+<input type="radio" name="pay" value="Cash App">
+Cash App
+</label>
+</div>
 
-<a id="telegramLink"
-   href="#"
-   target="_blank"
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button onclick="confirmPay()" id="confirmBtn">
+Confirm Payment
+</button>
+
+<a href="#"
    class="telegram-btn"
+   id="tg"
    onclick="return goTelegram()">
-   Contact Us on Telegram
+Contact Telegram
 </a>
 
 </div>
@@ -160,93 +230,169 @@ button:hover,
 
 <script>
 
-// GET PLAN FROM URL
+// PLAN FROM URL
+
 const params = new URLSearchParams(window.location.search);
-const plan = params.get("plan");
 
-let formattedPlan = "No plan selected";
+let plan = params.get("plan");
 
-if(plan === "RegularVIP") formattedPlan = "Regular VIP";
-else if(plan === "PremiumCard") formattedPlan = "Premium Card";
-else if(plan === "GoldCard") formattedPlan = "Gold Card";
+let formattedPlan = plan || "None";
 
-document.getElementById("selectedPlan").innerHTML =
+document.getElementById("planBox").innerText =
 "Selected Plan: " + formattedPlan;
 
 
-// PAYMENT UI
-const radios = document.querySelectorAll('input[name="payment"]');
-const boxes = document.querySelectorAll('.payment-method');
+// PAYMENT SELECTION UI
 
-radios.forEach(radio => {
-radio.addEventListener("change", () => {
+const payments = document.querySelectorAll(".payment");
+const radios = document.querySelectorAll('input[name="pay"]');
 
-    boxes.forEach(b => b.classList.remove("selected"));
-    radio.closest(".payment-method").classList.add("selected");
+radios.forEach(radio=>{
+
+radio.addEventListener("change", ()=>{
+
+payments.forEach(p=>p.classList.remove("selected"));
+
+radio.closest(".payment").classList.add("selected");
 
 });
+
 });
 
-let selectedPayment = "";
 
-// CONFIRM BUTTON
-function showPayment(){
+// LANGUAGE DATA
 
-selectedPayment = "";
+const texts = {
 
-radios.forEach(radio => {
-    if(radio.checked){
-        selectedPayment = radio.value;
-    }
-});
+en:{
+title:"Select Payment Method",
+subtitle:"Complete your VIP registration",
+confirm:"Confirm Payment",
+telegram:"Contact Telegram",
+warning:"Please select a payment method.",
+question:"Do you want to continue to Telegram?",
+noticeTitle:"Important Information",
+noticeText:"Payments and registration will be completed by some of our official representatives on Telegram after you select your preferred payment method."
+},
 
-if(selectedPayment === ""){
+fr:{
+title:"Choisir le mode de paiement",
+subtitle:"Complétez votre inscription VIP",
+confirm:"Confirmer le paiement",
+telegram:"Contacter Telegram",
+warning:"Veuillez sélectionner un mode de paiement.",
+question:"Voulez-vous continuer vers Telegram ?",
+noticeTitle:"Information Importante",
+noticeText:"Les paiements et l'inscription seront finalisés par certains de nos représentants officiels sur Telegram après la sélection du mode de paiement."
+},
 
-    document.getElementById("result").innerHTML =
-    "⚠ Please select a payment method.";
-
-    return;
+it:{
+title:"Seleziona metodo di pagamento",
+subtitle:"Completa la registrazione VIP",
+confirm:"Conferma pagamento",
+telegram:"Contatta Telegram",
+warning:"Seleziona un metodo di pagamento.",
+question:"Vuoi continuare su Telegram?",
+noticeTitle:"Informazione Importante",
+noticeText:"I pagamenti e la registrazione saranno completati da alcuni dei nostri rappresentanti ufficiali su Telegram dopo aver selezionato il metodo di pagamento."
 }
 
-document.getElementById("result").innerHTML =
-"Selected Payment: " + selectedPayment;
+};
+
+let currentLang = "en";
+
+function setLang(lang){
+
+currentLang = lang;
+
+document.getElementById("title").innerText =
+texts[lang].title;
+
+document.getElementById("subtitle").innerText =
+texts[lang].subtitle;
+
+document.getElementById("confirmBtn").innerText =
+texts[lang].confirm;
+
+document.getElementById("tg").innerText =
+texts[lang].telegram;
+
+document.getElementById("noticeTitle").innerText =
+texts[lang].noticeTitle;
+
+document.getElementById("noticeText").innerText =
+texts[lang].noticeText;
 
 }
 
-// TELEGRAM WITH CONFIRMATION POPUP
+
+// PAYMENT VALIDATION
+
+let selectedPay = "";
+
+function confirmPay(){
+
+selectedPay = "";
+
+radios.forEach(r=>{
+
+if(r.checked){
+selectedPay = r.value;
+}
+
+});
+
+if(!selectedPay){
+
+document.getElementById("result").innerText =
+texts[currentLang].warning;
+
+return;
+
+}
+
+document.getElementById("result").innerText =
+"Selected Payment: " + selectedPay;
+
+}
+
+
+// TELEGRAM FUNCTION
+
 function goTelegram(){
 
-if(selectedPayment === ""){
+if(!selectedPay){
 
-    document.getElementById("result").innerHTML =
-    "⚠ Please select a payment method before continuing.";
+document.getElementById("result").innerText =
+texts[currentLang].warning;
 
-    return false;
+return false;
+
 }
 
-// 🔔 CONFIRM POPUP
-let confirmAction = confirm(
-    "Confirm Payment Method:\n\n" +
-    "Plan: " + formattedPlan + "\n" +
-    "Payment: " + selectedPayment + "\n\n" +
-    "Do you want to proceed to Telegram?"
+let proceed = confirm(
+
+"Plan: " + formattedPlan + "\n" +
+"Payment: " + selectedPay + "\n\n" +
+texts[currentLang].question
+
 );
 
-if(!confirmAction){
-    return false;
+if(!proceed){
+return false;
 }
 
-const message =
+let message =
 "Hello, I want to register for " +
 formattedPlan +
 " using " +
-selectedPayment;
+selectedPay;
 
-const url =
+let url =
 "https://t.me/viponlyprivatechat?text=" +
 encodeURIComponent(message);
 
-window.open(url, "_blank");
+window.open(url,"_blank");
 
 return false;
 
